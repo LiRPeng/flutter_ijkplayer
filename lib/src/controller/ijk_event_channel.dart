@@ -50,6 +50,9 @@ class _IJKEventChannel {
         int errorValue = call.arguments;
         _onPlayError(errorValue);
         break;
+      case "videoRendering":
+        onVideoRendering();
+        break;
       default:
         return MissingPluginException(
           "$channelName ${call.method} not implement",
@@ -75,6 +78,10 @@ class _IJKEventChannel {
     controller.isPlaying = info.isPlaying;
     _prepareCompleter?.complete();
     _prepareCompleter = null;
+  }
+
+  void onVideoRendering(){
+    controller.isRendering = true;
   }
 
   Future<void> waitPrepare() {

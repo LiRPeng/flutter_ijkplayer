@@ -48,6 +48,9 @@ class NotifyChannel(val registry: PluginRegistry.Registrar, val textureId: Long,
                 IMediaPlayer.MEDIA_INFO_AUDIO_DECODED_START, IMediaPlayer.MEDIA_INFO_VIDEO_DECODED_START -> {
 //                    channel.invokeMethod("playStateChange", info)
                 }
+                IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START->{//开始播放
+                    channel.invokeMethod("videoRendering",info)
+                }
                 IMediaPlayer.MEDIA_INFO_VIDEO_ROTATION_CHANGED -> {
                     ijk.degree = extra
                     channel.invokeMethod("rotateChanged", info)

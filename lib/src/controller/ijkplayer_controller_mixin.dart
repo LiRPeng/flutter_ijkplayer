@@ -61,6 +61,25 @@ mixin IjkMediaControllerStreamMixin {
     }
   }
 
+  /// playing state
+  bool _isRendering = false;
+
+  /// playing state
+  bool get isRendering => _isRendering == true;
+
+  /// playing state
+  set isRendering(bool value) {
+    if (_isDispose) return;
+    this.isRendering = value;
+    _renderingController?.add(value);
+  }
+
+  /// playing state stream controller
+  StreamController<bool> _renderingController = StreamController.broadcast();
+
+  /// playing state stream
+  Stream<bool> get renderingStream => _renderingController?.stream;
+
   /// playing state stream controller
   StreamController<bool> _playingController = StreamController.broadcast();
 
