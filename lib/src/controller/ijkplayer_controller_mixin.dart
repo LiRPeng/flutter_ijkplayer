@@ -70,7 +70,7 @@ mixin IjkMediaControllerStreamMixin {
   /// playing state
   set isRendering(bool value) {
     if (_isDispose) return;
-    this.isRendering = value;
+    this._isRendering = value;
     _renderingController?.add(value);
   }
 
@@ -219,6 +219,7 @@ mixin IjkMediaControllerStreamMixin {
 
   Future<void> _disposeStream([changeStatus = true]) async {
     if (changeStatus) _ijkStatus = IjkStatus.disposed;
+    _renderingController?.close();
     _playingController?.close();
     _videoInfoController?.close();
     _textureIdController?.close();
@@ -227,6 +228,7 @@ mixin IjkMediaControllerStreamMixin {
     _ijkStatusController?.close();
     _ijkErrorController?.close();
 
+    _renderingController=null;
     _playingController = null;
     _videoInfoController = null;
     _textureIdController = null;
