@@ -65,6 +65,11 @@
                                              selector:@selector(movieRotationChange:)
                                                  name:IJKMPMoviePlayerVideoRotationNotification
                                                object:_controller];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+    selector:@selector(firstVideoFrameRendered:)
+        name:IJKMPMoviePlayerFirstVideoFrameRenderedNotification
+      object:_controller];
+    
 }
 
 - (void)unregisterObservers {
@@ -83,6 +88,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:IJKMPMoviePlayerVideoRotationNotification
                                                   object:_controller];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+      name:IJKMPMoviePlayerFirstVideoFrameRenderedNotification
+    object:_controller];
 }
 
 - (NSDictionary *)getInfo {
@@ -131,5 +139,10 @@
     [_infoDelegate setDegree:rotate];
     [channel invokeMethod:@"rotateChanged" arguments:[self getInfo]];
 }
+
+- (void)firstVideoFrameRendered:(NSNotification *)notification {
+    [channel invokeMethod:@"videoRendering" arguments:[self getInfo]];
+}
+
 
 @end
