@@ -129,8 +129,9 @@ class Ijk(private val registry: PluginRegistry.Registrar, private val options: M
 //                result?.success(this.mediaPlayer.setVolume())
                 }
                 "screenShot" -> {
-                    val bytes = screenShot()
-                    result?.success(bytes)
+//                    val bytes = screenShot()
+//                    result?.success(bytes)
+                    result?.success(null)
                 }
                 "setSpeed" -> {
                     val speed = call.arguments<Double>()
@@ -202,15 +203,16 @@ class Ijk(private val registry: PluginRegistry.Registrar, private val options: M
     }
 
     private fun screenShot(): ByteArray? {
-        val frameBitmap = mediaPlayer.frameBitmap
-        return if (frameBitmap != null) {
-            val outputStream = ByteArrayOutputStream()
-            frameBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            frameBitmap.recycle()
-            outputStream.toByteArray()
-        } else {
-            null
-        }
+//        val frameBitmap = mediaPlayer.frameBitmap
+//        return if (frameBitmap != null) {
+//            val outputStream = ByteArrayOutputStream()
+//            frameBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//            frameBitmap.recycle()
+//            outputStream.toByteArray()
+//        } else {
+//            null
+//        }
+        return null
     }
 
     fun getInfo(): Info {
@@ -317,7 +319,7 @@ class Ijk(private val registry: PluginRegistry.Registrar, private val options: M
                     }
                 }
                 this.tmpFile = file
-                mediaPlayer.setDataSource(FileMediaDataSource(file))
+//                mediaPlayer.setDataSource(FileMediaDataSource(file))
             }
             mediaPlayer.prepareAsync()
         } catch (e: Exception) {
